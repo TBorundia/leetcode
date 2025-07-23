@@ -11,7 +11,8 @@ public:
             }
             if (nums[i] == nums[i - 1] + 1) {
                 cnt++;
-            } else {
+            } 
+            else {
                 max_seq = max(max_seq, cnt);
                 cnt = 1;
             }
