@@ -6,6 +6,7 @@ public:
             if(n&1) cnt++;
             n=n>>1;
         }
+        if(n==1) cnt++;
         return cnt;
     }
 };
