@@ -8,6 +8,7 @@ public:
             }
         }
     }
+    
     int findCircleNum(vector<vector<int>>& isConnected) {
         int V=isConnected.size();
         vector<vector<int>> adj(V);
