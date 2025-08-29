@@ -24,7 +24,7 @@ public:
             int r=q.front().first.first;
             int c=q.front().first.second;
             int d=q.front().second;
-            q.pop();
+            q.pop(); res[r][c]=d;
 
             for(int i=0;i<4;i++){
                 int nr=r+delr[i];
@@ -33,7 +33,7 @@ public:
                 if(nr>=0 && nr<m && nc>=0 && nc<n && !vis[nr][nc] && mat[nr][nc]!=0){
                     q.push({{nr,nc},d+1});
                     vis[nr][nc]=1;
-                    res[nr][nc]=d+1;
+                    // res[nr][nc]=d+1;
                 }
             }
         }
