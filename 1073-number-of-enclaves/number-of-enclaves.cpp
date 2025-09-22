@@ -1,54 +1,61 @@
 class Solution {
 public:
     int numEnclaves(vector<vector<int>>& grid) {
-        int m=grid.size();
-        int n=grid[0].size();
-        vector<vector<int>> vis(m,vector<int>(n,0));
+        int n=grid.size();
+        int m=grid[0].size();
+
         queue<pair<int,int>> q;
-        for(int j=0;j<n;j++){
-            if(!vis[0][j] && grid[0][j]==1){
-                q.push({0,j});
-                vis[0][j]=1;
-            } 
-            if(!vis[m-1][j] && grid[m-1][j]==1){
-                q.push({m-1,j});
-                vis[m-1][j]=1;
+        vector<vector<int>> vis(n,vector<int>(m,0));
+
+        for(int i=0;i<n;i++){
+            if(grid[i][0]==1){
+                q.push({i,0});
+                vis[i][0]=1;
+            }
+
+            if(grid[i][m-1]==1){
+                q.push({i,m-1});
+                vis[i][m-1]=1;
             }
         }
 
         for(int i=0;i<m;i++){
-            if(!vis[i][0] && grid[i][0]==1){
-                q.push({i,0});
-                vis[i][0]=1;
+            if(grid[0][i]==1){
+                q.push({0,i});
+                vis[0][i]=1;
             }
-            if(!vis[i][n-1] && grid[i][n-1]==1){
-                q.push({i,n-1});
-                vis[i][n-1]=1;
+
+            if(grid[n-1][i]==1){
+                q.push({n-1,i});
+                vis[n-1][i]=1;
             }
         }
+
+        int delr[]={-1,0,1,0};
+        int delc[]={0,1,0,-1};
 
         while(!q.empty()){
             int r=q.front().first;
             int c=q.front().second;
             q.pop();
 
-            int delr[]={-1,0,1,0};
-            int delc[]={0,1,0,-1};
-
             for(int i=0;i<4;i++){
                 int nr=r+delr[i];
                 int nc=c+delc[i];
-                if(nr>=0 && nr<m && nc>=0 && nc<n && !vis[nr][nc] && grid[nr][nc]==1){
-                    vis[nr][nc]=1;
+
+                if(nr>=0 && nr<n && nc>=0 && nc<m && vis[nr][nc]==0 && grid[nr][nc]==1){
                     q.push({nr,nc});
+                    vis[nr][nc]=1;
                 }
             }
         }
 
         int cnt=0;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(!vis[i][j] && grid[i][j]==1) cnt++;
+        for(int i=1;i<n-1;i++){
+            for(int j=1;j<m-1;j++){
+                if(grid[i][j]==1 && vis[i][j]==0){
+                    cnt++;
+                }
             }
         }
         return cnt;
